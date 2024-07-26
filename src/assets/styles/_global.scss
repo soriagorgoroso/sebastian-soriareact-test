@@ -1,0 +1,18 @@
+@import "variables";
+@import "mixins";
+
+body {
+  font-family: $font-family;
+  font-size: $font-size;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  @include button-styles;
+}
+
+input {
+  @include input-styles;
+}

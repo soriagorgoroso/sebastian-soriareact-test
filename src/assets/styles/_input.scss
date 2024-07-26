@@ -1,0 +1,22 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+.input-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.custom-input {
+  @include input-styles;
+  width: 90%;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  height: 20px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+}

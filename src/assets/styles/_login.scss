@@ -1,0 +1,19 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+.login-container {
+  @include flex-center;
+  height: 100vh;
+  background-color: lighten($primary-color, 40%);
+}
+
+.login-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+}

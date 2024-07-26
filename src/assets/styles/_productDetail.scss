@@ -1,0 +1,60 @@
+@import "../../assets/styles/variables";
+@import "../../assets/styles/mixins";
+
+.product-detail-container {
+  @include flex-center;
+  flex-direction: row;
+  padding: 20px;
+  background-color: $primary-color;
+  height: 100vh;
+}
+
+.product-info,
+.product-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+  margin: 8px;
+  height: 600px;
+}
+
+.product-info h1,
+.product-info p {
+  text-align: center;
+}
+
+.product-info img {
+  display: block;
+  max-width: 40%;
+  height: auto;
+  margin: 0 auto 20px auto;
+}
+
+.product-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-form label {
+  margin-top: 2px;
+}
+
+.product-form input[type="file"] {
+  margin-top: 10px;
+  width: 200px;
+}
+
+.product-form button {
+  @include button-styles;
+  margin-top: 20px;
+}
+
+.delete-button {
+  @include button-styles;
+  background-color: $secondary-color;
+  margin-top: 10px;
+}
