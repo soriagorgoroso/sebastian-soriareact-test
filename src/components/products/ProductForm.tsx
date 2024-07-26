@@ -4,6 +4,7 @@ import { useProductStore } from "../../store/productStore";
 import { Product } from "../../types/product.types";
 import Button from "../common/Button";
 import Input from "../common/Input";
+import "../../assets/styles/_productForm.scss";
 
 const ProductForm: React.FC<{ product?: Product }> = ({ product }) => {
   const { addProduct, updateProduct } = useProductStore();
@@ -87,7 +88,7 @@ const ProductForm: React.FC<{ product?: Product }> = ({ product }) => {
     }
 
     const newProduct = {
-      id: product?.id || Math.random(), // or a unique ID generator
+      id: product?.id || Math.random(),
       title,
       price: Number(price),
       category,
@@ -111,49 +112,53 @@ const ProductForm: React.FC<{ product?: Product }> = ({ product }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Enter product title"
-        label="Title"
-        error={errors.title}
-      />
-      <Input
-        type="text"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-        placeholder="Enter product price"
-        label="Price"
-        error={errors.price}
-      />
-      <Input
-        type="text"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        placeholder="Enter product category"
-        label="Category"
-        error={errors.category}
-      />
-      <Input
-        type="text"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Enter product description"
-        label="Description"
-        error={errors.description}
-      />
-      <div>
-        <label>Image:</label>
-        <input type="file" onChange={handleImageChange} />
+    <div className="product-form-container">
+      <div className="product-form">
+        <form onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter product title"
+            label="Title"
+            error={errors.title}
+          />
+          <Input
+            type="text"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder="Enter product price"
+            label="Price"
+            error={errors.price}
+          />
+          <Input
+            type="text"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="Enter product category"
+            label="Category"
+            error={errors.category}
+          />
+          <Input
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter product description"
+            label="Description"
+            error={errors.description}
+          />
+          <div>
+            <label>Image:</label>
+            <input type="file" onChange={handleImageChange} />
+          </div>
+          <Button
+            text={product ? "Update Product" : "Create Product"}
+            type="submit"
+            onClick={() => {}}
+          />
+        </form>
       </div>
-      <Button
-        text={product ? "Update Product" : "Create Product"}
-        type="submit"
-        onClick={() => {}}
-      />
-    </form>
+    </div>
   );
 };
 
