@@ -31,80 +31,32 @@ const ProductForm: React.FC<{ product?: Product }> = ({ product }) => {
     return newErrors;
   };
 
-  const resizeImage = (
-    file: File,
-    maxWidth: number,
-    maxHeight: number
-  ): Promise<string> => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        img.src = e.target?.result as string;
-      };
-
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
-
-        let width = img.width;
-        let height = img.height;
-
-        if (width > height) {
-          if (width > maxWidth) {
-            height = Math.round((height *= maxWidth / width));
-            width = maxWidth;
-          }
-        } else {
-          if (height > maxHeight) {
-            width = Math.round((width *= maxHeight / height));
-            height = maxHeight;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        ctx.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL(file.type));
-      };
-
-      reader.readAsDataURL(file);
-    });
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors = validateForm();
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
       return;
     }
 
-    let imageUrl = product?.image || "";
-    if (image) {
-      imageUrl = await resizeImage(image, 800, 800);
-    }
-
-    const newProduct = {
-      id: product?.id || Math.random(),
+    const newProduct: Product = {
+      id: product?.id || Date.now(),
       title,
       price: Number(price),
       category,
       description,
-      image: imageUrl,
+      image: image ? URL.createObjectURL(image) : product?.image || "",
     };
 
-    if (product) {
-      updateProduct(newProduct);
-    } else {
-      addProduct(newProduct);
-    }
-
-    navigate("/products");
+    try {
+      if (product) {
+        await updateProduct(newProduct);
+      } else {
+        await addProduct(newProduct);
+      }
+      navigate("/products");
+    } catch (error) {}
   };
-
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setImage(e.target.files[0]);

@@ -1,5 +1,3 @@
-// src/components/products/ProductDetail.tsx
-
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProductStore } from "../../store/productStore";
@@ -8,6 +6,7 @@ import { validateForm } from "../../utils/validations";
 import { Product } from "../../types/product.types";
 import { deleteProductById, updateProductById } from "../../services/api";
 import "../../assets/styles/_productDetail.scss";
+
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { products, updateProduct, removeProduct } = useProductStore();
@@ -75,7 +74,7 @@ const ProductDetail: React.FC = () => {
       removeProduct(product?.id || 0);
       navigate("/products");
     } catch (error) {
-      console.error("Error al eliminar el producto:", error);
+      console.error("Error al eliminar el producto:", error); // Debug log for errors
     }
   };
 

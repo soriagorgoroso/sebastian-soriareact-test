@@ -4,7 +4,8 @@ import { useProductStore } from "../../store/productStore";
 import Pagination from "../pagination/Pagination";
 import SortButton from "../common/SortButton";
 import { Product } from "../../types/product.types";
-import "..//../assets/styles/_productList.scss";
+import "../../assets/styles/_productList.scss";
+
 const ProductList: React.FC = () => {
   const { products } = useProductStore();
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const ProductList: React.FC = () => {
       return 0;
     });
   };
+
   const getFilteredProducts = () => {
     let filteredProducts = products.filter((product) =>
       product.title.toLowerCase().includes(search.toLowerCase())

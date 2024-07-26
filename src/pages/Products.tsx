@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from "react";
 import ProductList from "../components/products/ProductList";
 import { useProductStore } from "../store/productStore";
-import { fetchProducts } from "../services/api";
 
 const Products: React.FC = () => {
-  const { setProducts } = useProductStore();
+  const { products, setProducts } = useProductStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const data = await fetchProducts();
-        setProducts(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        setLoading(false);
-      }
-    };
+    if (products.length === 0) {
+      const fetchProducts = async () => {
+        try {
+          const response = await fetch("https://fakestoreapi.com/products");
+          const data = await response.json();
+          console.log("Fetched products:", data);
+          setProducts(data);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+          setLoading(false);
+        }
+      };
 
-    loadProducts();
-  }, [setProducts]);
+      fetchProducts();
+    } else {
+      setLoading(false);
+    }
+  }, [setProducts, products.length]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -28,6 +33,7 @@ const Products: React.FC = () => {
 
   return (
     <div>
+      <h1>Products</h1>
       <ProductList />
     </div>
   );
